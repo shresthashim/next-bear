@@ -1,7 +1,19 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import { useTaskStore } from "@/lib/store";
 
-export default function Task({ title, description, status }: { title: string; description?: string; status: string }) {
+export default function Task({
+  id,
+  title,
+  description,
+  status,
+}: {
+  id: string;
+  title: string;
+  description?: string;
+  status: string;
+}) {
+  const dragTask = useTaskStore((state) => state.dragTask);
   return (
     <div
       className={cn("flex cursor-move items-start justify-between rounded-lg bg-white px-3 py-2 text-gray-900", {
@@ -9,6 +21,8 @@ export default function Task({ title, description, status }: { title: string; de
         "border-2 border-amber-500": status === "IN_PROGRESS",
         "border-2 border-emerald-500": status === "DONE",
       })}
+      draggable
+      onDrag={() => dragTask(id)}
     >
       <div>
         <h3 className='font-medium text-gray-700'>{title}</h3>

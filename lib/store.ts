@@ -12,16 +12,24 @@ export interface Task {
 
 export type State = {
   tasks: Task[];
+  draggedTask: string | null;
 };
 
 export type Actions = {
   addTask: (title: string, description?: string) => void;
   removeTask: (id: string) => void;
   updateTask: (id: string, status: Status) => void;
+  dragTask: (id: string | null) => void;
 };
 
 export const useTaskStore = create<State & Actions>((set) => ({
   tasks: [],
+  draggedTask: null,
+  dragTask: (id: string | null) => {
+    set({
+      draggedTask: id,
+    });
+  },
   addTask: (title: string, description?: string) =>
     set((state) => ({
       tasks: [
