@@ -14,6 +14,8 @@ export default function Task({
   status: string;
 }) {
   const dragTask = useTaskStore((state) => state.dragTask);
+  const deleteTask = useTaskStore((state) => state.removeTask);
+
   return (
     <div
       className={cn("flex cursor-move items-start justify-between rounded-lg bg-white px-3 py-2 text-gray-900", {
@@ -29,7 +31,7 @@ export default function Task({
         <p className='text-sm font-light text-gray-500'>{description}</p>
       </div>
 
-      <button className='cursor-pointer'>
+      <button onClick={() => deleteTask(id)} className='cursor-pointer'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
